@@ -24,3 +24,7 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 });
+
+
+// Frontend Routes
+include_once './frontend.php';
