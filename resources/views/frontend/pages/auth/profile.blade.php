@@ -10,7 +10,7 @@
                 <div class="card-header">{{ __('Profile') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('profile.update') }}">
+                    <form method="POST" action="{{ route('frontend.profile.update') }}">
                         @csrf
                         @method('PUT')
 
