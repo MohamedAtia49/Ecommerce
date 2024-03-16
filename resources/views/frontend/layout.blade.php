@@ -9,19 +9,19 @@
 <html lang="en">
 
 <head>
-    @include('partials.head')
+    @include('frontend.partials.head')
     <title>@yield('title')</title>
-    @include('partials.styles')
+    @include('frontend.partials.styles')
 </head>
 
 <body>
 
     <!-- Start Header/Navigation -->
-    @include('partials.nav')
+    @include('frontend.partials.nav')
     <!-- End Header/Navigation -->
 
     <!-- Start Hero Section -->
-    @include('partials.hero-section')
+    @include('frontend.partials.hero-section')
     <!-- End Hero Section -->
 
 
@@ -34,11 +34,11 @@
 
 
     <!-- Start Footer Section -->
-    @include('partials.footer')
+    @include('frontend.partials.footer')
     <!-- End Footer Section -->
 
 
-    @include('partials.scripts')
+    @include('frontend.partials.scripts')
 </body>
 
 </html>
