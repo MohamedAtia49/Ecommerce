@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend\Products;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -12,9 +13,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+        return view('frontend.pages.products',compact('products'));
     }
-
+    
     /**
      * Show the form for creating a new resource.
      */

@@ -12,4 +12,3 @@
     rel="stylesheet">
 <link href="{{ asset('css/tiny-slider.css') }}" rel="stylesheet">
 <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-<title>Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites by Untree.co </title>

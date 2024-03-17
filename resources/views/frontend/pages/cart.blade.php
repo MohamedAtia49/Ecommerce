@@ -1,11 +1,11 @@
-@extends('layout')
+@extends('frontend.layout')
 @section('title', 'Cart')
 
 @section('content')
     <div class="untree_co-section before-footer-section">
         <div class="container">
             <div class="row mb-5">
-                <form class="col-md-12" method="post">
+                <div class="col-md-12" method="post"> <!-- Start Form Update replaced to Div --> <!-- If u want to work form inside form use Ajax -->
                     <div class="site-blocks-table">
                         <table class="table">
                             <thead>
@@ -19,63 +19,40 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="product-thumbnail">
-                                        <img src="images/product-1.png" alt="Image" class="img-fluid">
-                                    </td>
-                                    <td class="product-name">
-                                        <h2 class="h5 text-black">Product 1</h2>
-                                    </td>
-                                    <td>$49.00</td>
-                                    <td>
-                                        <div class="input-group mb-3 d-flex align-items-center quantity-container"
-                                            style="max-width: 120px;">
-                                            <div class="input-group-prepend">
-                                                <button class="btn btn-outline-black decrease"
-                                                    type="button">&minus;</button>
-                                            </div>
-                                            <input type="text" class="form-control text-center quantity-amount"
-                                                value="1" placeholder="" aria-label="Example text with button addon"
-                                                aria-describedby="button-addon1">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-black increase"
-                                                    type="button">&plus;</button>
-                                            </div>
-                                        </div>
+                                <?php $total = 0 ?>
+                                @if (session()->has('cart'))
+                                    @foreach (session('cart') as $id => $details)
+                                        <tr>
+                                            <td class="product-thumbnail">
+                                                <img src="images/product-1.png" alt="Image" class="img-fluid">
+                                            </td>
+                                            <td class="product-name">
+                                                <h2 class="h5 text-black">{{ $details['name'] }}</h2>
+                                            </td>
+                                            <td>${{ $details['price'] }}</td>
+                                            <td>
+                                                <div class="input-group mb-3 d-flex align-items-center quantity-container"
+                                                    style="max-width: 120px;">
+                                                    <div class="input-group-prepend">
+                                                        <button class="btn btn-outline-black decrease"
+                                                            type="button">&minus;</button>
+                                                    </div>
+                                                    <input type="text" class="form-control text-center quantity-amount"
+                                                        value="{{ $details['quantity'] }}" placeholder="" aria-label="Example text with button addon"
+                                                        aria-describedby="button-addon1">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-outline-black increase"
+                                                            type="button">&plus;</button>
+                                                    </div>
+                                                </div>
 
-                                    </td>
-                                    <td>$49.00</td>
-                                    <td><a href="#" class="btn btn-black btn-sm">X</a></td>
-                                </tr>
-
-                                <tr>
-                                    <td class="product-thumbnail">
-                                        <img src="images/product-2.png" alt="Image" class="img-fluid">
-                                    </td>
-                                    <td class="product-name">
-                                        <h2 class="h5 text-black">Product 2</h2>
-                                    </td>
-                                    <td>$49.00</td>
-                                    <td>
-                                        <div class="input-group mb-3 d-flex align-items-center quantity-container"
-                                            style="max-width: 120px;">
-                                            <div class="input-group-prepend">
-                                                <button class="btn btn-outline-black decrease"
-                                                    type="button">&minus;</button>
-                                            </div>
-                                            <input type="text" class="form-control text-center quantity-amount"
-                                                value="1" placeholder="" aria-label="Example text with button addon"
-                                                aria-describedby="button-addon1">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-outline-black increase"
-                                                    type="button">&plus;</button>
-                                            </div>
-                                        </div>
-
-                                    </td>
-                                    <td>$49.00</td>
-                                    <td><a href="#" class="btn btn-black btn-sm">X</a></td>
-                                </tr>
+                                            </td>
+                                            <td>$<?php echo $total += $details['price'] * $details['quantity'] ?></td>
+                                            <td><a href="{{ route('frontend.remove.cart',$id) }}" class="btn btn-danger">X</a></td>
+                                        </tr>
+                                    @endforeach
+                                @endif
+                                <!-- Products -->
                             </tbody>
                         </table>
                     </div>

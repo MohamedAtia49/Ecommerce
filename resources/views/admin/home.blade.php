@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('admin_layouts.app')
 {{-- @inject('city' ,'App\Models\City') --}}
 
 @section('page_title')
@@ -38,7 +38,7 @@
                               <span class="info-box-icon bg-dark"><i class="far fa-user"></i></span>
 
                               <div class="info-box-content">
-                                <span class="info-box-text">Restaurants</span>
+                                <span class="info-box-text">Products</span>
                                 <span class="info-box-number"></span>
                               </div>
                               <!-- /.info-box-content -->
@@ -50,7 +50,7 @@
                               <span class="info-box-icon bg-info"><i class="far fa-user"></i></span>
 
                               <div class="info-box-content">
-                                <span class="info-box-text">Clients</span>
+                                <span class="info-box-text">Customers</span>
                                 <span class="info-box-number"></span>
                               </div>
                               <!-- /.info-box-content -->

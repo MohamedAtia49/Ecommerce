@@ -11,17 +11,17 @@
 
         <div class="collapse navbar-collapse" id="navbarsFurni">
             <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                <li class="nav-item ">
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('frontend.home') }}">Home</a>
                 </li>
-                <li class="active"><a class="nav-link" href="{{ route('frontend.products.index') }}">Shop</a></li>
+                <li class=""><a class="nav-link" href="{{ route('frontend.products.index') }}">Shop</a></li>
                 <li><a class="nav-link" href="{{ route('frontend.products.index') }}">Blog</a></li>
                 <li><a class="nav-link" href="{{ route('frontend.contact-us') }}">Contact us</a></li>
             </ul>
 
             <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
                 <li><a class="nav-link" href="{{ route('frontend.profile') }}"><img src="images/user.svg"></a></li>
-                <li><a class="nav-link" href="{{ route('frontend.cart') }}"><img src="images/cart.svg"></a></li>
+                <li><a class="nav-link" href="{{ route('frontend.cart') }}"><img src="images/cart.svg" >{{ count(session('cart')) }}</a></li>
             </ul>
         </div>
     </div>
