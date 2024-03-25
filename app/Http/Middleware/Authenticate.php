@@ -36,12 +36,13 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
+
+            //this MiddleWare Work to redirect Not Authentications Users
             if (Arr::first($this->guards) === 'web') {
                 return route('admin.login');
+            }elseif(Arr::first($this->guards) === 'client') {
+                return route('frontend.sign-in');
             }
-            // elseif(Arr::first($this->guards) === 'client') {
-            //     return route('client.get.login');
-            // }
 
             return route('admin.login');
         }

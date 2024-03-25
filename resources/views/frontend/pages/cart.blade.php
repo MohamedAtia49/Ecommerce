@@ -2,6 +2,12 @@
 @section('title', 'Cart')
 
 @section('content')
+
+    @if (session('empty'))
+        <div class="alert alert-danger text-center p-2">
+            <h1 class="text-dark">{{ session('empty') }}</h1>
+        </div>
+    @endif
     <div class="untree_co-section before-footer-section">
         <div class="container">
             <div class="row mb-5">
@@ -19,12 +25,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php $total = 0 ?>
                                 @if (session()->has('cart'))
                                     @foreach (session('cart') as $id => $details)
+                                    <?php $total = 0 ?>
                                         <tr>
                                             <td class="product-thumbnail">
-                                                <img src="images/product-1.png" alt="Image" class="img-fluid">
+                                                <img src="{{ url("/images/" . $details['image']) }}" alt="Image" class="img-fluid">
                                             </td>
                                             <td class="product-name">
                                                 <h2 class="h5 text-black">{{ $details['name'] }}</h2>
@@ -45,7 +51,6 @@
                                                             type="button">&plus;</button>
                                                     </div>
                                                 </div>
-
                                             </td>
                                             <td>$<?php echo $total += $details['price'] * $details['quantity'] ?></td>
                                             <td><a href="{{ route('frontend.remove.cart',$id) }}" class="btn btn-danger">X</a></td>
@@ -85,6 +90,10 @@
                 <div class="col-md-6 pl-5">
                     <div class="row justify-content-end">
                         <div class="col-md-7">
+                            <?php $totalPrice = 0; ?>
+                            @foreach (session('cart') as $item)
+                                <?php $totalPrice += $item['quantity'] * $item['price']; ?>
+                            @endforeach
                             <div class="row">
                                 <div class="col-md-12 text-right border-bottom mb-5">
                                     <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
@@ -95,7 +104,7 @@
                                     <span class="text-black">Subtotal</span>
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    <strong class="text-black">$230.00</strong>
+                                    <strong class="text-black">${{ $totalPrice }}</strong>
                                 </div>
                             </div>
                             <div class="row mb-5">
@@ -103,14 +112,13 @@
                                     <span class="text-black">Total</span>
                                 </div>
                                 <div class="col-md-6 text-right">
-                                    <strong class="text-black">$230.00</strong>
+                                    <strong class="text-black">${{ $totalPrice }}</strong>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button class="btn btn-black btn-lg py-3 btn-block"
-                                        onclick="window.location='checkout.html'">Proceed To Checkout</button>
+                                    <a href="{{ route('frontend.get.checkout') }}" class="btn btn-black btn-lg py-3 btn-block">Proceed To Checkout</a>
                                 </div>
                             </div>
                         </div>

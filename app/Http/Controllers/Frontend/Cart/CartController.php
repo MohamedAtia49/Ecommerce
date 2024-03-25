@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Cart;
+namespace App\Http\Controllers\Frontend\Cart;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
@@ -22,7 +22,7 @@ class CartController extends Controller
                         "name" => $product->name,
                         "quantity" => 1,
                         "price" => $product->price,
-                        "photo" => $product->photo
+                        "image" => $product->image
                     ]
             ];
             session()->put('cart', $cart);
@@ -39,7 +39,7 @@ class CartController extends Controller
             "name" => $product->name,
             "quantity" => 1,
             "price" => $product->price,
-            "photo" => $product->photo
+            "image" => $product->image
         ];
         session()->put('cart', $cart);
         return redirect()->back()->with('success', 'Product added to cart successfully!');

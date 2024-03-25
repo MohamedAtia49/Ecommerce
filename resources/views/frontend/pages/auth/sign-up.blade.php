@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('frontend.layout')
 @section('title', 'Sign Up')
 
 @section('content')
@@ -17,7 +17,7 @@
 
                             <div class="col-md-6">
                                 <input id="name" type="text"
-                                    class="form-control @error('name') is-invalid @enderror" name="name"
+                                    class="form-control mb-3 @error('name') is-invalid @enderror" name="name"
                                     value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                 @error('name')
@@ -35,7 +35,7 @@
 
                             <div class="col-md-6">
                                 <input id="email" type="email"
-                                    class="form-control @error('email') is-invalid @enderror" name="email"
+                                    class="form-control mb-3 @error('email') is-invalid @enderror" name="email"
                                     value="{{ old('email') }}" required autocomplete="email">
 
                                 @error('email')
@@ -52,7 +52,7 @@
 
                             <div class="col-md-6">
                                 <input id="password" type="password"
-                                    class="form-control @error('password') is-invalid @enderror" name="password" required
+                                    class="form-control mb-3 @error('password') is-invalid @enderror" name="password" required
                                     autocomplete="new-password">
 
                                 @error('password')
@@ -69,7 +69,7 @@
                                 class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control"
+                                <input id="password-confirm" type="password" class="form-control mb-3"
                                     name="password_confirmation" required autocomplete="new-password">
                             </div>
 

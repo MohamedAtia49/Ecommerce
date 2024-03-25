@@ -2,13 +2,14 @@
 
 // Frontend Controllers
 
+use App\Http\Controllers\Checkout\CheckoutController;
 use App\Http\Controllers\Frontend\Auth\AuthController;
 use App\Http\Controllers\Frontend\Invokable\AboutUsController;
 use App\Http\Controllers\Frontend\Invokable\CartController;
 use App\Http\Controllers\Frontend\Invokable\ContactUsController;
 use App\Http\Controllers\Frontend\Invokable\HomeController;
 use App\Http\Controllers\Frontend\Products\ProductController;
-
+use App\Models\Governorate;
 // Facades
 use Illuminate\Support\Facades\Route;
 
@@ -32,8 +33,7 @@ Auth::routes(['register' => false]);
 
 Route::middleware('auth')->prefix('admin')->group(function () {
 
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.home');
 });
 
 
@@ -49,26 +49,30 @@ Route::name('frontend.')->group(function() {
     Route::resource('/products', ProductController::class);
 
     // Add to Cart
-    Route::get('/add-to-cart/{id}',[App\Http\Controllers\Cart\CartController::class,'addToCart'])->name('add.cart');
-    Route::get('/remove-cart/{id}',[App\Http\Controllers\Cart\CartController::class,'removeCart'])->name('remove.cart');
-
-    // Checkout Routes
-    Route::get('/checkout', function () {
-        return view('pages.checkout');
-    })->name('checkout');
+    Route::get('/add-to-cart/{id}',[App\Http\Controllers\Frontend\Cart\CartController::class,'addToCart'])->name('add.cart');
+    Route::get('/remove-cart/{id}',[App\Http\Controllers\Frontend\Cart\CartController::class,'removeCart'])->name('remove.cart');
 
     // Auth Controllers
     Route::get('/sign-up', [AuthController::class, 'signUp'])->name('sign-up');
     Route::post('/sign-up', [AuthController::class, 'signUpAction'])->name('register');
 
-    Route::get('/sign-in', [AuthController::class, 'signIn'])->name('sign-in');
-    Route::post('/sign-in', [AuthController::class, 'signInAction'])->name('login');
+    Route::get('/sign-in', [AuthController::class, 'signIn'])->name('sign-in')->middleware('guest:client');
+    Route::post('/sign-in', [AuthController::class, 'signInAction'])->name('login')->middleware('guest:client');
 
+    Route::get('/logout', [AuthController::class, 'signOut'])->name('logout');
 
-    Route::middleware(['auth'])->group(function() {
-        Route::post('/sign-out', [AuthController::class, "signOut"])->name('sign-out');
+    //Thank-You-View
+    Route::get('/thank-you', [CheckoutController::class,'thankYou'])->name('thank.you');
 
-        Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
-        Route::patch('/profile', [AuthController::class, 'updateProfile'])->name('profile.update');
+    Route::group(['middleware' => ['auth:client']], function () {
+        //client Profile
+            Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
+            Route::patch('/profile', [AuthController::class, 'updateProfile'])->name('profile.update');
+
+        // Checkout Routes
+            Route::get('/checkout',[CheckoutController::class,'index'])->name('get.checkout');
+            Route::post('/checkout/order',[CheckoutController::class,'addOrder'])->name('checkout.order');
+        //Thank-You-View
+        // Route::get('/thank-you', [CheckoutController::class,'thankYou'])->name('thank.you');
     });
 });
