@@ -2,12 +2,14 @@
 
 // Frontend Controllers
 
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Checkout\CheckoutController;
 use App\Http\Controllers\Frontend\Auth\AuthController;
 use App\Http\Controllers\Frontend\Invokable\AboutUsController;
 use App\Http\Controllers\Frontend\Invokable\CartController;
 use App\Http\Controllers\Frontend\Invokable\ContactUsController;
 use App\Http\Controllers\Frontend\Invokable\HomeController;
+use App\Http\Controllers\Frontend\Orders\OrderController;
 use App\Http\Controllers\Frontend\Products\ProductController;
 use App\Models\Governorate;
 // Facades
@@ -31,9 +33,19 @@ Route::get('/admin/login', function () {
 
 Auth::routes(['register' => false]);
 
-Route::middleware('auth')->prefix('admin')->group(function () {
+Route::name('admin.')->middleware('auth')->prefix('admin')->group(function () {
 
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('admin.home');
+    Route::get('/home', [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
+    //Products
+    Route::resource('/products', App\Http\Controllers\Admin\ProductController::class);
+    //Get Orders By state
+    Route::get('/orders/pending',[App\Http\Controllers\Admin\OrderController::class,'pendingOrders'])->name('orders.pending');
+    Route::get('/orders/accepted',[App\Http\Controllers\Admin\OrderController::class,'acceptedOrders'])->name('orders.accepted');
+    Route::get('/orders/delivered',[App\Http\Controllers\Admin\OrderController::class,'deliveredOrders'])->name('orders.delivered');
+    //Set Orders Actions
+    Route::put('/order/accept/{id}',[App\Http\Controllers\Admin\OrderController::class,'setAccept'])->name('order.accept');
+    Route::put('/order/reject/{id}',[App\Http\Controllers\Admin\OrderController::class,'setReject'])->name('order.reject');
+    Route::put('/order/delivered/{id}',[App\Http\Controllers\Admin\OrderController::class,'setDelivered'])->name('order.set.delivered');
 });
 
 
@@ -61,18 +73,20 @@ Route::name('frontend.')->group(function() {
 
     Route::get('/logout', [AuthController::class, 'signOut'])->name('logout');
 
-    //Thank-You-View
-    Route::get('/thank-you', [CheckoutController::class,'thankYou'])->name('thank.you');
+    // //Thank-You-View
+    // Route::get('/thank-you', [CheckoutController::class,'thankYou'])->name('thank.you');
 
     Route::group(['middleware' => ['auth:client']], function () {
         //client Profile
             Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
             Route::patch('/profile', [AuthController::class, 'updateProfile'])->name('profile.update');
-
+        //Client Orders
+        Route::get('/my-orders', [OrderController::class, 'getMyOrders'])->name('my.orders');
+        Route::delete('/order/delete/{id}', [OrderController::class, 'deleteOrder'])->name('order.delete');
         // Checkout Routes
             Route::get('/checkout',[CheckoutController::class,'index'])->name('get.checkout');
             Route::post('/checkout/order',[CheckoutController::class,'addOrder'])->name('checkout.order');
         //Thank-You-View
-        // Route::get('/thank-you', [CheckoutController::class,'thankYou'])->name('thank.you');
+        Route::get('/thank-you', [CheckoutController::class,'thankYou'])->name('thank.you');
     });
 });

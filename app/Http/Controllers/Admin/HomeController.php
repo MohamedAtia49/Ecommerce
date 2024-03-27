@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function __invoke()
+    public function index()
     {
-        return view('frontend.pages.home');
+        return view('admin.home');
     }
 }

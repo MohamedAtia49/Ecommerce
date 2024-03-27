@@ -30,7 +30,7 @@
                                     <?php $total = 0 ?>
                                         <tr>
                                             <td class="product-thumbnail">
-                                                <img src="{{ url("/images/" . $details['image']) }}" alt="Image" class="img-fluid">
+                                                <img src="{{ Storage::url($details['image']) }}" alt="Image" class="img-fluid" width="80">
                                             </td>
                                             <td class="product-name">
                                                 <h2 class="h5 text-black">{{ $details['name'] }}</h2>

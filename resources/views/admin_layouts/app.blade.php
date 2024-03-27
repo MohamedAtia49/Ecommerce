@@ -88,15 +88,43 @@
                       </a>
                       <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('admin.products.index') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Add Product</p>
+                                <p>Products</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ route('admin.products.create') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Create Product</p>
+                            </a>
+                        </li>
+                    </ul>
+                 <li class="nav-item">
+                    <a href="" class="nav-link">
+                      <i class="fas fa-flag"></i>
+                        <p>
+                            Orders
+                        <i class="right fas fa-angle-left"></i>
+                        </p>
+                      </a>
+                      <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('admin.orders.pending') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Pending Orders</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.orders.accepted') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Accepted Orders</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.orders.delivered') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Deliverd Orders</p>
                             </a>
                         </li>
                     </ul>

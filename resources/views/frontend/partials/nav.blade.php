@@ -19,6 +19,7 @@
                 <li><a class="nav-link" href="{{ route('frontend.contact-us') }}">Contact us</a></li>
 
                 @auth('client')
+                    <li><a class="nav-link" href="{{ route('frontend.my.orders') }}">My Orders</a></li>
                     <li><a class="nav-link bg-danger rounded-3 btn-outline-primary" href="{{ route('frontend.logout') }}">Logout</a></li>
                 @endauth
 
